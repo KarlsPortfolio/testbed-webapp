@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__logo" id="logo">Book Haven</div>
+      <nav class="header__nav">
+        <button id="store-tab" class="header__nav-btn" type="button" data-testid="store-tab">
+          Store
+        </button>
+        <button id="checkout-tab" class="header__nav-btn" type="button" data-testid="checkout-tab">
+          Checkout
+        </button>
+        <button id="messages-tab" class="header__nav-btn" type="button" data-testid="messages-tab">
+          Messages
+        </button>
+      </nav>
+      <label class="visually-hidden" for="search-input">Search books</label>
+      <input
+        type="text"
+        id="search-input"
+        class="header__search-input"
+        placeholder="Search by title or author..."
+        data-testid="search-bar"
+      />
+      <button
+        id="cart-icon"
+        class="header__cart-button"
+        type="button"
+        aria-label="Open cart"
+        data-testid="cart-icon-btn"
+      >
+        <span aria-hidden="true">🛒</span>
+        <span id="cart-count-badge" class="header__cart-count">0</span>
+      </button>
+      <p id="header-user-name" class="header__user-name" data-testid="header-user-name"></p>
+      <button id="auth-button" class="button button--primary" type="button" data-testid="login-btn">
+        Login
+      </button>
+    </header>
+
+    <section id="store-view" class="app-view">
+      <div class="app-layout">
+      <aside class="filters" aria-labelledby="filter-heading">
+        <h2 class="filters__title" id="filter-heading">Filter</h2>
+        <div class="filters__option">
+          <input
+            type="checkbox"
+            id="genre-fiction"
+            value="Fiction"
+            data-testid="filter-fiction"
+          />
+          <label for="genre-fiction">Fiction</label>
+        </div>
+        <div class="filters__option">
+          <input type="checkbox" id="genre-tech" value="Tech" data-testid="filter-tech" />
+          <label for="genre-tech">Tech</label>
+        </div>
+        <div class="filters__option">
+          <input
+            type="checkbox"
+            id="genre-science"
+            value="Science"
+            data-testid="filter-science"
+          />
+          <label for="genre-science">Science</label>
+        </div>
+      </aside>
+
+      <main class="catalog">
+        <h1 class="catalog__title">Books</h1>
+        <p id="stock-error" class="catalog__stock-error" data-testid="stock-error-global"></p>
+        <section id="search-loading-spinner" class="catalog__loading-overlay hidden">
+          <div class="catalog__spinner" aria-hidden="true"></div>
+          <p class="catalog__loading-text">Loading search results...</p>
+        </section>
+        <section id="book-grid" class="catalog__book-grid" aria-live="polite"></section>
+      </main>
+      </div>
+    </section>
+
+    <section id="login-view" class="app-view hidden">
+      <main class="auth">
+        <h1 class="auth__title">Login</h1>
+        <form id="login-form" class="auth__form" data-testid="login-form">
+          <label for="login-username" class="auth__label">Username</label>
+          <input
+            id="login-username"
+            class="auth__input"
+            type="text"
+            autocomplete="username"
+            data-testid="login-username"
+          />
+          <label for="login-password" class="auth__label">Password</label>
+          <input
+            id="login-password"
+            class="auth__input"
+            type="password"
+            autocomplete="current-password"
+            data-testid="login-password"
+          />
+          <p id="login-error" class="auth__error" data-testid="login-error"></p>
+          <button id="login-submit" class="button button--primary" type="submit" data-testid="login-submit">
+            Login
+          </button>
+        </form>
+      </main>
+    </section>
+
+    <section id="checkout-view" class="app-view hidden">
+      <main class="panel">
+        <h1 class="panel__title">Checkout</h1>
+        <p id="checkout-summary" class="panel__text" data-testid="checkout-summary">
+          Your cart is empty.
+        </p>
+        <form id="checkout-form" class="checkout-form" data-testid="checkout-form">
+          <label class="checkout-form__label" for="full-name">Full Name</label>
+          <input id="full-name" class="checkout-form__input" type="text" data-testid="full-name-input" />
+          <p id="full-name-error" class="checkout-form__error" data-testid="full-name-error"></p>
+
+          <label class="checkout-form__label" for="email">Email</label>
+          <input id="email" class="checkout-form__input" type="email" data-testid="email-input" />
+          <p id="email-error" class="checkout-form__error" data-testid="email-error"></p>
+
+          <label class="checkout-form__label" for="address">Address</label>
+          <input id="address" class="checkout-form__input" type="text" data-testid="address-input" />
+          <p id="address-error" class="checkout-form__error" data-testid="address-error"></p>
+
+          <label class="checkout-form__label" for="credit-card">Credit Card (16 digits)</label>
+          <input
+            id="credit-card"
+            class="checkout-form__input"
+            type="text"
+            inputmode="numeric"
+            maxlength="16"
+            data-testid="credit-card-input"
+          />
+          <p id="credit-card-error" class="checkout-form__error" data-testid="credit-card-error"></p>
+
+          <label class="checkout-form__label" for="cvv">CVV</label>
+          <input id="cvv" class="checkout-form__input" type="text" inputmode="numeric" maxlength="3" data-testid="cvv-input" />
+          <p id="cvv-error" class="checkout-form__error" data-testid="cvv-error"></p>
+
+          <button
+            id="place-order-button"
+            class="button button--primary"
+            type="submit"
+            disabled
+            data-testid="place-order-btn"
+          >
+            Place Order
+          </button>
+        </form>
+      </main>
+    </section>
+
+    <section id="order-success-view" class="app-view hidden">
+      <main class="panel">
+        <h1 class="panel__title" data-testid="order-success-title">Order Success</h1>
+        <p id="order-success-message" class="panel__text" data-testid="order-success-message"></p>
+      </main>
+    </section>
+
+    <section id="messages-view" class="app-view hidden">
+      <main class="panel">
+        <h1 class="panel__title">Messages</h1>
+        <div id="messages-list" class="panel__list" data-testid="messages-list"></div>
+      </main>
+    </section>
+
+    <div
+      id="cart-modal"
+      class="cart-modal hidden"
+      role="dialog"
+      aria-labelledby="cart-title"
+      aria-modal="true"
+    >
+      <div class="cart-modal__content">
+        <header class="cart-modal__header">
+          <h2 id="cart-title">Your Cart</h2>
+          <button
+            id="close-cart"
+            class="cart-modal__close"
+            type="button"
+            aria-label="Close cart modal"
+            data-testid="close-cart-btn"
+          >
+            &times;
+          </button>
+        </header>
+        <section id="cart-items" class="cart-modal__items"></section>
+        <footer class="cart-modal__footer">
+          <p id="cart-total" class="cart-modal__total">$0.00</p>
+          <button
+            id="checkout-button"
+            class="button button--primary"
+            type="button"
+            data-testid="checkout-btn"
+          >
+            Checkout
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <div
+      id="pdp-modal"
+      class="pdp-modal hidden"
+      role="dialog"
+      aria-labelledby="pdp-title"
+      aria-modal="true"
+    >
+      <div class="pdp-modal__content">
+        <header class="pdp-modal__header">
+          <h2 id="pdp-title">Book Details</h2>
+          <button
+            id="close-pdp"
+            class="pdp-modal__close"
+            type="button"
+            aria-label="Close detail modal"
+            data-testid="close-pdp-btn"
+          >
+            &times;
+          </button>
+        </header>
+        <section id="pdp-body" class="pdp-modal__body" data-testid="pdp-body"></section>
+      </div>
+    </div>
+
+    <div id="toast-notification" class="toast hidden" data-testid="toast-notification"></div>
+    <div id="processing-overlay" class="processing-overlay hidden" data-testid="processing-overlay">
+      <div class="processing-overlay__content">
+        <div class="processing-overlay__spinner" data-testid="loading-spinner"></div>
+        <p>Processing order...</p>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
