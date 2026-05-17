@@ -137,13 +137,30 @@
           <input id="address" class="checkout-form__input" type="text" data-testid="address-input" />
           <p id="address-error" class="checkout-form__error" data-testid="address-error"></p>
 
-          <label class="checkout-form__label" for="credit-card">Credit Card (16 digits)</label>
+          <label class="checkout-form__label" for="city">City</label>
+          <input id="city" class="checkout-form__input" type="text" data-testid="city-input" />
+          <p id="city-error" class="checkout-form__error" data-testid="city-error"></p>
+
+          <label class="checkout-form__label" for="zip-code">Zip Code</label>
+          <input
+            id="zip-code"
+            class="checkout-form__input"
+            type="text"
+            inputmode="numeric"
+            maxlength="5"
+            data-testid="zip-code-input"
+          />
+          <p id="zip-code-error" class="checkout-form__error" data-testid="zip-code-error"></p>
+
+          <label class="checkout-form__label" for="credit-card">Credit Card</label>
           <input
             id="credit-card"
             class="checkout-form__input"
             type="text"
             inputmode="numeric"
-            maxlength="16"
+            maxlength="19"
+            placeholder="####-####-####-####"
+            autocomplete="cc-number"
             data-testid="credit-card-input"
           />
           <p id="credit-card-error" class="checkout-form__error" data-testid="credit-card-error"></p>

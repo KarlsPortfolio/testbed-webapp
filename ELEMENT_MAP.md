@@ -38,27 +38,27 @@
 
 
 
-\## 3. Advanced Checkout Form
+\## 3. Checkout Form (`#checkout-form`)
 
-| Element Name | Selector (data-testid) | Type | Purpose |
+| Element Name | Input ID | Error Boundary ID | Selector (data-testid) | Type | Purpose |
 
-| :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- | :--- |
 
-| Profile Checkbox | `use-profile-chk` | Checkbox | Auto-fills form with profile data |
+| Full Name | `full-name` | `full-name-error` | `full-name-input` / `full-name-error` | Input | Min 2 characters |
 
-| Shipping Name | `shipping-name` | Input | Manual entry / Validation test |
+| Email | `email` | `email-error` | `email-input` / `email-error` | Input | Email regex validation |
 
-| Shipping Email | `shipping-email` | Input | Regex validation test |
+| Address | `address` | `address-error` | `address-input` / `address-error` | Input | Min 6 characters |
 
-| Card Number | `card-number` | Input | 16-digit constraint test |
+| City | `city` | `city-error` | `city-input` / `city-error` | Input | Min 2 characters |
 
-| Expiry Date | `card-expiry` | Input | Format (MM/YY) test |
+| Zip Code | `zip-code` | `zip-code-error` | `zip-code-input` / `zip-code-error` | Input | Exactly 5 numeric digits |
 
-| CVV Field | `card-cvv` | Input | 3-digit numeric test |
+| Credit Card | `credit-card` | `credit-card-error` | `credit-card-input` / `credit-card-error` | Input | 16 digits, auto-formatted as `####-####-####-####` (max 19 chars with hyphens) |
 
-| Field Error | `field-error` | Text | Specific error message per field |
+| CVV | `cvv` | `cvv-error` | `cvv-input` / `cvv-error` | Input | Exactly 3 numeric digits |
 
-| Place Order | `place-order-btn` | Button | Enabled only when form is valid |
+| Place Order | — | — | `place-order-btn` | Button | Enabled only when form is valid |
 
 
 

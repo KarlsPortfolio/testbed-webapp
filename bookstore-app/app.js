@@ -29,6 +29,8 @@ const formMap = {
   "full-name": "full-name-error",
   "email": "email-error",
   "address": "address-error",
+  "city": "city-error",
+  "zip-code": "zip-code-error",
   "credit-card": "credit-card-error",
   "cvv": "cvv-error"
 };
@@ -214,13 +216,22 @@ function renderCheckoutSummary() {
 
 function resetCheckoutForm() {
   checkoutForm.reset();
-  ["full-name-error", "email-error", "address-error", "credit-card-error", "cvv-error"].forEach((id) => {
+  Object.values(formMap).forEach((id) => {
     const el = document.getElementById(id);
     if (el) {
       el.textContent = "";
     }
   });
   placeOrderButton.disabled = true;
+}
+
+function formatCreditCardInput(inputElement) {
+  const digits = inputElement.value.replace(/\D/g, "").slice(0, 16);
+  const groups = [];
+  for (let i = 0; i < digits.length; i += 4) {
+    groups.push(digits.slice(i, i + 4));
+  }
+  inputElement.value = groups.join("-");
 }
 
 function validateField(inputElement, showUI = true) {
@@ -235,10 +246,23 @@ function validateField(inputElement, showUI = true) {
   } else if (inputElement.id === "email") {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(value)) { message = "Enter a valid email address."; isValid = false; }
-  } else if (inputElement.id === "address") {
-    if (value.length < 6) { message = "Address must be at least 6 characters."; isValid = false; }
+  } else if (inputElement.id === "address"){
+    const addressRegex = /^(?=.*\d)(?=.*[a-zA-Z]).+$/;
+    
+  if (value.length < 6) { 
+    message = "Address must be at least 6 characters."; 
+    isValid = false; 
+  } else if (!addressRegex.test(value)) {
+    message = "Address must include both a street number and name."; 
+    isValid = false; 
+  }
+} else if (inputElement.id === "city") {
+    if (value.length < 2) { message = "Enter a valid city."; isValid = false; }
+  } else if (inputElement.id === "zip-code") {
+    if (!/^\d{5}$/.test(value)) { message = "Zip code must be exactly 5 digits."; isValid = false; }
   } else if (inputElement.id === "credit-card") {
-    if (!/^\d{16}$/.test(value)) { message = "Credit card must be exactly 16 digits."; isValid = false; }
+    const cardDigits = value.replace(/\D/g, "");
+    if (cardDigits.length !== 16) { message = "Credit card must be 16 digits (####-####-####-####)."; isValid = false; }
   } else if (inputElement.id === "cvv") {
     if (!/^\d{3}$/.test(value)) { message = "CVV must be exactly 3 digits."; isValid = false; }
   }
@@ -330,48 +354,32 @@ function validateCheckoutForm(showErrors = false) {
 }
 
 function setupValidationListeners() {
+  const inputs = Object.keys(formMap).map((id) => document.getElementById(id));
 
-  const inputs = Object.keys(formMap).map(id => document.getElementById(id));
-  
-  // This guard catch the exact broken ID
- 
-  
-  inputs.forEach(input => {
-    
-  
-  // A. When user leaves the field (Blur) -> Show error if invalid
-  
-  input.addEventListener("blur", () => {
-  
-  validateField(input, true);
-  
-  validateCheckoutForm(false); // Silent check to enable/disable button
-  
+  inputs.forEach((input) => {
+    if (!input) {
+      return;
+    }
+
+    input.addEventListener("blur", () => {
+      validateField(input, true);
+      validateCheckoutForm(false);
+    });
+
+    input.addEventListener("input", () => {
+      if (input.id === "credit-card") {
+        formatCreditCardInput(input);
+      }
+
+      const errorId = formMap[input.id];
+      if (document.getElementById(errorId).textContent !== "") {
+        validateField(input, true);
+      }
+
+      validateCheckoutForm(false);
+    });
   });
-  
-  
-  
-  // B. While user is typing (Input) -> Real-time fix & button check
-  
-  input.addEventListener("input", () => {
-  
-  // If there is currently an error displayed, validate in real-time to clear it
-  
-  const errorId = formMap[input.id];
-  
-  if (document.getElementById(errorId).textContent !== "") {
-  
-  validateField(input, true);
-  
-  }
-  
-  validateCheckoutForm(false); // Silent check for button state
-  
-  });
-  
-  });
-  
-  }
+}
 
 function setActiveTab() {
   [storeTab, checkoutTab, messagesTab].forEach((tab) => tab.classList.remove("header__nav-btn--active"));
