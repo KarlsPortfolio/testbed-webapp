@@ -25,6 +25,16 @@ const state = {
   toastTimer: null
 };
 
+const formMap = {
+  "full-name": "full-name-error",
+  "email": "email-error",
+  "address": "address-error",
+  "city": "city-error",
+  "zip-code": "zip-code-error",
+  "credit-card": "credit-card-error",
+  "cvv": "cvv-error"
+};
+
 const storeView = document.getElementById("store-view");
 const loginView = document.getElementById("login-view");
 const checkoutView = document.getElementById("checkout-view");
@@ -206,7 +216,7 @@ function renderCheckoutSummary() {
 
 function resetCheckoutForm() {
   checkoutForm.reset();
-  ["full-name-error", "email-error", "address-error", "credit-card-error", "cvv-error"].forEach((id) => {
+  Object.values(formMap).forEach((id) => {
     const el = document.getElementById(id);
     if (el) {
       el.textContent = "";
@@ -215,6 +225,58 @@ function resetCheckoutForm() {
   placeOrderButton.disabled = true;
 }
 
+function formatCreditCardInput(inputElement) {
+  const digits = inputElement.value.replace(/\D/g, "").slice(0, 16);
+  const groups = [];
+  for (let i = 0; i < digits.length; i += 4) {
+    groups.push(digits.slice(i, i + 4));
+  }
+  inputElement.value = groups.join("-");
+}
+
+function validateField(inputElement, showUI = true) {
+  const value = inputElement.value.trim();
+  const errorId = formMap[inputElement.id];
+  let message = "";
+  let isValid = true;
+
+  // Updated to match your exact HTML input IDs
+  if (inputElement.id === "full-name") {
+    if (value.length < 2) { message = "Enter a valid full name."; isValid = false; }
+  } else if (inputElement.id === "email") {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) { message = "Enter a valid email address."; isValid = false; }
+  } else if (inputElement.id === "address"){
+    const addressRegex = /^(?=.*\d)(?=.*[a-zA-Z]).+$/;
+    
+  if (value.length < 6) { 
+    message = "Address must be at least 6 characters."; 
+    isValid = false; 
+  } else if (!addressRegex.test(value)) {
+    message = "Address must include both a street number and name."; 
+    isValid = false; 
+  }
+} else if (inputElement.id === "city") {
+    if (value.length < 2) { message = "Enter a valid city."; isValid = false; }
+  } else if (inputElement.id === "zip-code") {
+    if (!/^\d{5}$/.test(value)) { message = "Zip code must be exactly 5 digits."; isValid = false; }
+  } else if (inputElement.id === "credit-card") {
+    const cardDigits = value.replace(/\D/g, "");
+    if (cardDigits.length !== 16) { message = "Credit card must be 16 digits (####-####-####-####)."; isValid = false; }
+  } else if (inputElement.id === "cvv") {
+    if (!/^\d{3}$/.test(value)) { message = "CVV must be exactly 3 digits."; isValid = false; }
+  }
+
+  // Only update the UI text if showUI is true
+  if (showUI) {
+    setFieldError(errorId, message);
+  }
+  
+  return isValid;
+}
+
+
+
 function setFieldError(errorId, message) {
   const errorElement = document.getElementById(errorId);
   if (!errorElement) {
@@ -222,7 +284,7 @@ function setFieldError(errorId, message) {
   }
   errorElement.textContent = message;
 }
-
+/*
 function validateCheckoutForm() {
   const fullName = fullNameInput.value.trim();
   const email = emailInput.value.trim();
@@ -270,6 +332,53 @@ function validateCheckoutForm() {
 
   placeOrderButton.disabled = !isValid || state.cart.length === 0;
   return isValid;
+}
+*/
+
+
+
+function validateCheckoutForm(showErrors = false) {
+  let isFormValid = true;
+
+  // Check every field in our map
+  Object.keys(formMap).forEach(inputId => {
+    const el = document.getElementById(inputId);
+    // If showErrors is true, the user sees red text. If false, it's a silent check.
+    const isFieldValid = validateField(el, showErrors);
+    if (!isFieldValid) isFormValid = false;
+  });
+
+  // Enable/Disable button based on validity and cart state
+  placeOrderButton.disabled = !isFormValid || state.cart.length === 0;
+  return isFormValid;
+}
+
+function setupValidationListeners() {
+  const inputs = Object.keys(formMap).map((id) => document.getElementById(id));
+
+  inputs.forEach((input) => {
+    if (!input) {
+      return;
+    }
+
+    input.addEventListener("blur", () => {
+      validateField(input, true);
+      validateCheckoutForm(false);
+    });
+
+    input.addEventListener("input", () => {
+      if (input.id === "credit-card") {
+        formatCreditCardInput(input);
+      }
+
+      const errorId = formMap[input.id];
+      if (document.getElementById(errorId).textContent !== "") {
+        validateField(input, true);
+      }
+
+      validateCheckoutForm(false);
+    });
+  });
 }
 
 function setActiveTab() {
@@ -756,6 +865,13 @@ authButton.addEventListener("click", () => {
   }
 });
 
+placeOrderButton.addEventListener("click", () => {
+  // Force show all errors if they exist
+  if (validateCheckoutForm(true)) {
+    placeOrderWithDelay();
+  }
+});
+
 loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
   attemptLogin(loginUsername.value.trim(), loginPassword.value.trim());
@@ -765,10 +881,11 @@ checkoutForm.addEventListener("submit", (event) => {
   event.preventDefault();
   submitOrderWithDelay();
 });
-
+/*
 [fullNameInput, emailInput, addressInput, creditCardInput, cvvInput].forEach((input) => {
   input.addEventListener("input", validateCheckoutForm);
 });
+*/
 
 cartIcon.addEventListener("click", openCart);
 closeCartButton.addEventListener("click", closeCart);
@@ -787,6 +904,7 @@ pdpModal.addEventListener("click", (event) => {
   }
 });
 
+
 loadSession();
 loadMessages();
 updateAuthUi();
@@ -796,3 +914,7 @@ renderMessages();
 renderCheckoutSummary();
 updateCartBadge();
 navigateTo("store");
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupValidationListeners();
+});
