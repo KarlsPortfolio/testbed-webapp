@@ -18,5 +18,5 @@ jobs:
       - name: Deploy Subfolder to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: web-app # This tells the runner to ONLY grab files inside your web-app folder
+          folder: bookstore-app # This tells the runner to ONLY grab files inside your web-app folder
           branch: gh-pages # It pushes them to a clean, separate branch for hosting
