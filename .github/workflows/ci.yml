@@ -1,0 +1,38 @@
+name: Continuous Integration - Framework Benchmarking
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  coordinate-runners:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        framework-runner: [SeleniumRunner, PlaywrightRunner]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven' # Speeds up subsequent runs by caching dependencies
+
+  #1. Start the local server by jumping into the bookstore-app directory
+      - name: Start Local Web Server
+        run: |
+          cd bookstore-app
+          python3 -m http.server 5500 &
+          sleep 3
+
+      # Executes ONLY the specific runner class assigned to this virtual machine matrix
+      #And jump into the automated-framework directory before running Maven
+      - name: Run ${{ matrix.framework-runner }} Suite
+        run: |
+          cd automation-framework
+          mvn test -Dtest=${{ matrix.framework-runner }}
