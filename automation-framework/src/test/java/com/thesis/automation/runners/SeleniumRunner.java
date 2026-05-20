@@ -1,4 +1,4 @@
-package java.com.thesis.automation.runners;
+package com.thesis.automation.runners;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
