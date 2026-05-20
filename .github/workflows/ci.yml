@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        framework-runner: [SeleniumTestRunner, PlaywrightTestRunner]
+        framework-runner: [SeleniumRunner, PlaywrightRunner]
 
     steps:
       - name: Checkout Code
