@@ -23,10 +23,10 @@ jobs:
           distribution: 'temurin'
           cache: 'maven' # Speeds up subsequent runs by caching dependencies
 
-  #1. Start the local server by jumping into the web-app directory
+  #1. Start the local server by jumping into the bookstore-app directory
       - name: Start Local Web Server
         run: |
-          cd web-app
+          cd bookstore-app
           python3 -m http.server 5500 &
           sleep 3
 
