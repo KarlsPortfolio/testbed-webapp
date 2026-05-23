@@ -696,7 +696,7 @@ function runSearchRenderWithLoading() {
 }
 
 function attemptLogin(username, password) {
-  if (username === "testuser" && password === "password123") {
+  if (username === "validUser" && password === "validPassword") {
     state.currentUser = username;
     saveSession();
     updateAuthUi();
@@ -707,7 +707,7 @@ function attemptLogin(username, password) {
     showToast("Login successful.");
     return;
   }
-  loginError.textContent = "Invalid credentials. Use testuser / password123.";
+  loginError.textContent = "Invalid credentials. Use validUser / validPassword.";
 }
 
 function logout() {
