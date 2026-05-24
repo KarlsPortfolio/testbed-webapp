@@ -24,11 +24,11 @@ Feature: User Authentication Portal
 
 
     Examples:
-      |username|password|description|
-      |validUser|wrongPassword|incorrect password|
-      |invalidUser|validPassword|incorrect username|
-      |nonExistentUser|expiredPassword   |both fields incorrect|
-      |               |validPassword     |missing username edgecase|
+      |username         |password       |description              |
+      |validUser        |wrongPassword  |incorrect password       |
+      |invalidUser      |validPassword  |incorrect username       |
+      |nonExistentUser  |expiredPassword|both fields incorrect    |
+      |                 |validPassword  |missing username edgecase|
 
 
 

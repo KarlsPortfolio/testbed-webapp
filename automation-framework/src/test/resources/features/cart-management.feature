@@ -16,7 +16,7 @@ Feature: Cart Management Operations
     Examples:
       | bookTitle                                              | description                      |
       | Stars and Beyond                                       | Baseline alphanumeric title      |
-      | C++: The Complete Reference                            | Special characters & punctuation  |
+      | C++: The Complete Reference                            | Special characters & punctuation |
       | Designing Data-Intensive Applications: The Big Guide   | Extreme string boundary length   |
 
   @atomic
