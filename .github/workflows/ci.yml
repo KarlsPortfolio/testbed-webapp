@@ -35,4 +35,4 @@ jobs:
       - name: Run ${{ matrix.framework-runner }} Suite
         run: |
           cd automation-framework
-          mvn test -Dtest=${{ matrix.framework-runner }} --batch-mode
+          mvn clean test -Dtest=${{ matrix.framework-runner }} --batch-mode
