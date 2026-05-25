@@ -6,6 +6,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.util.List;
+import java.util.Map;
+
 public class EstoreStepDefinitions {
 
     // ==========================================
@@ -190,7 +193,22 @@ public class EstoreStepDefinitions {
     }
 
     @When("I add the following books to my cart:")
-    public void iAddTheFollowingBooksToMyCart() {
+    public void iAddTheFollowingBooksToMyCart(List<Map<String, String>> booksTable) {
+        // 1. Loop through each row of the Gherkin table
+        for (Map<String, String> row : booksTable) {
+
+            // 2. Extract values using your Gherkin column headers as the keys
+            String title = row.get("bookTitle");
+            int quantity = Integer.parseInt(row.get("quantity"));
+
+            // 3. Print or pass these directly to your Page Object Model layer
+            System.out.println("Processing E2E Item -> Title: " + title + " | Qty: " + quantity);
+
+            // Example POM loop integration:
+            // for (int i = 0; i < quantity; i++) {
+            //     catalogPage.addBookToCart(title);
+            // }
+        }
         // Write code here that turns the phrase above into concrete actions
 
     }
