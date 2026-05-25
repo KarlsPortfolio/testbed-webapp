@@ -32,10 +32,11 @@ jobs:
 
       # Runs Selenium Isolated Suite
       - name: Execute Isolated Selenium Testing Suite
+        working-directory: ./automation
         run: mvn clean test -Dtest=com.thesis.automation.selenium.runners.SeleniumRunner
 
       # Runs Playwright Isolated Suite
       - name: Execute Isolated Playwright Testing Suite
+        working-directory: ./automation
         run: mvn clean test -Dtest=com.thesis.automation.playwright.runners.PlaywrightRunner
 
-      
