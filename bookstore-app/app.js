@@ -1,9 +1,9 @@
 const books = [
   { id: 1, title: "The Silent River", author: "Maya Collins", price: 12.99, genre: "Fiction", stock: 5 },
-  { id: 2, title: "JavaScript in Action", author: "Ethan Reid", price: 29.5, genre: "Tech", stock: 1 },
+  { id: 2, title: "Designing Data-Intensive Applications: The Big Guide", author: "Martin Kleppmann", price: 29.5, genre: "Tech", stock: 1 },
   { id: 3, title: "Stars and Beyond", author: "Nina Holt", price: 18.75, genre: "Science", stock: 0 },
   { id: 4, title: "Hidden Letters", author: "Oliver Dane", price: 10.0, genre: "Fiction", stock: 1 },
-  { id: 5, title: "Clean API Design", author: "Priya Nair", price: 33.2, genre: "Tech", stock: 5 },
+  { id: 5, title: "C++: The Complete Reference", author: "Herbert Schildt", price: 33.2, genre: "Tech", stock: 5 },
   { id: 6, title: "The Quantum Trail", author: "Rhea Summers", price: 21.49, genre: "Science", stock: 0 },
   { id: 7, title: "Moonlit Stories", author: "Daniel Frost", price: 14.25, genre: "Fiction", stock: 5 },
   { id: 8, title: "Data Systems Basics", author: "Sofia Chen", price: 26.8, genre: "Tech", stock: 1 }
@@ -696,7 +696,7 @@ function runSearchRenderWithLoading() {
 }
 
 function attemptLogin(username, password) {
-  if (username === "testuser" && password === "password123") {
+  if (username === "validUser" && password === "validPassword") {
     state.currentUser = username;
     saveSession();
     updateAuthUi();
@@ -707,7 +707,7 @@ function attemptLogin(username, password) {
     showToast("Login successful.");
     return;
   }
-  loginError.textContent = "Invalid credentials. Use testuser / password123.";
+  loginError.textContent = "Invalid credentials. Use validUser / validPassword.";
 }
 
 function logout() {
