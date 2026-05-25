@@ -31,7 +31,7 @@ jobs:
           sleep 3
 
       # Executes ONLY the specific runner class assigned to this virtual machine matrix
-      #And jump into the automated-framework directory before running Maven
+      #And jump into the automated-framework directory before running Mavens
       - name: Run ${{ matrix.framework-runner }} Suite
         run: |
           cd automation-framework
