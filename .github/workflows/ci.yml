@@ -30,9 +30,12 @@ jobs:
           python3 -m http.server 5500 &
           sleep 3
 
-      # Executes ONLY the specific runner class assigned to this virtual machine matrix
-      #And jump into the automated-framework directory before running Mavens
-      - name: Run ${{ matrix.framework-runner }} Suite
-        run: |
-          cd automation-framework
-          mvn clean test -Dtest=${{ matrix.framework-runner }}
+      # Runs Selenium Isolated Suite
+      - name: Execute Isolated Selenium Testing Suite
+        run: mvn clean test -Dtest=com.thesis.automation.selenium.runners.SeleniumRunner
+
+      # Runs Playwright Isolated Suite
+      - name: Execute Isolated Playwright Testing Suite
+        run: mvn clean test -Dtest=com.thesis.automation.playwright.runners.PlaywrightRunner
+
+      
