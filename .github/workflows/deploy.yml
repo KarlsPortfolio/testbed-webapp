@@ -3,7 +3,7 @@ name: Deploy Web App to GitHub Pages
 on:
   push:
     branches:
-      - main  # Only triggers when your PR is officially merged into main
+      - main  # Only triggers when pull-request is officially merged into main
     paths:
       - 'bookstore-app/**'
 
