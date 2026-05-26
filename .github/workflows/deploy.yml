@@ -3,9 +3,10 @@ name: Deploy Web App to GitHub Pages
 on:
   push:
     branches:
-      - main  # 💡 ONLY runs when code officially lands on main
+      - main  # Only triggers when your PR is officially merged into main
     paths:
-      - 'bookstore-app/**' # 💡 ONLY runs if the actual website files were modified
+      - 'bookstore-app/**'
+
 permissions:
   contents: write
 
@@ -16,8 +17,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # Creates a sterile workspace and flattens the asset tree
+      - name: Prepare Flat Static Assets
+        run: |
+          mkdir public-site
+          cp -r bookstore-app/* public-site/
+
+      # Publishes the flat contents directly to the hosting root
       - name: Deploy Subfolder to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: ./bookstore-app # Tells the runner to ONLY grab files inside bookstore-app folder
-          branch: gh-pages # It pushes them to a clean, separate branch for hosting
+          folder: public-site
+          branch: gh-pages
+          clean: true # Forces the action to wipe out any ghost cache on the gh-pages branch
