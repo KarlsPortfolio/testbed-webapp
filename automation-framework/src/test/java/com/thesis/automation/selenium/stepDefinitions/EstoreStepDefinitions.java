@@ -192,7 +192,7 @@ public class EstoreStepDefinitions {
 
     }
 
-    @When("I add the following books to my cart:")
+    @When("I add the following books to my carts:")
     public void iAddTheFollowingBooksToMyCart(List<Map<String, String>> booksTable) {
         // Write code here that turns the phrase above into concrete actions
         // 1. Loop through each row of the Gherkin table
