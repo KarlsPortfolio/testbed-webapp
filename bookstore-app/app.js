@@ -6,7 +6,7 @@ const books = [
   { id: 5, title: "C++: The Complete Reference", author: "Herbert Schildt", price: 33.2, genre: "Tech", stock: 5 },
   { id: 6, title: "The Quantum Trail", author: "Rhea Summers", price: 21.49, genre: "Science", stock: 0 },
   { id: 7, title: "Moonlit Stories", author: "Daniel Frost", price: 14.25, genre: "Fiction", stock: 5 },
-  { id: 8, title: "Data Systems Basics", author: "Sofia Chen", price: 26.8, genre: "Tech", stock: 1 }
+  { id: 8, title: "Data Systems Basics", author: "Sofia Chen", price: 26.8, genre: "Tech", stock: 2 }
 ];
 
 const SESSION_KEY = "bookstore_session_user";
