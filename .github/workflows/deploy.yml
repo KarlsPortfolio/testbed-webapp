@@ -3,16 +3,9 @@ name: Deploy Web App to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # 💡 ONLY runs when code officially lands on main
     paths:
-      - 'automation-framework/**'
-
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'automation-framework/**' # 💡 Tests ONLY trigger if changes occur inside this folder
-
+      - 'bookstore-app/**' # 💡 ONLY runs if the actual website files were modified
 permissions:
   contents: write
 
