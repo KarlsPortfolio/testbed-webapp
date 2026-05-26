@@ -3,7 +3,7 @@ name: Deploy Web App to GitHub Pages
 on:
   push:
     branches:
-      - main  # Triggers automatically whenever you merge a PR into main
+      - main  # Triggers automatically whenever I merge a PR into main
 
 permissions:
   contents: write
@@ -18,5 +18,5 @@ jobs:
       - name: Deploy Subfolder to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: bookstore-app # This tells the runner to ONLY grab files inside your web-app folder
+          folder: ./bookstore-app # Tells the runner to ONLY grab files inside your web-app folder
           branch: gh-pages # It pushes them to a clean, separate branch for hosting
