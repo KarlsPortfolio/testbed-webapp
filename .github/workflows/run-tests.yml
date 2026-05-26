@@ -1,4 +1,4 @@
-name: Continuous Integration - Framework Benchmarking
+name: Continuous Integration - Framework Benchmarking V2
 
 on:
   push:
