@@ -1,0 +1,50 @@
+name: Continuous Integration - Framework Benchmarking V2
+
+on:
+  push:
+    branches:
+      - main
+#    paths:
+#      - 'automation-framework/**' # 💡 Trigger if testing code changes
+#      - 'bookstore-app/**'        # 💡 Trigger if DOM/HTML/JS web-app code changes
+
+  pull_request:
+    branches:
+      - main
+#    paths:
+#      - 'automation-framework/**' # 💡 Trigger on PR if testing code changes
+#      - 'bookstore-app/**'        # 💡 Trigger on PR if DOM/HTML/JS web-app code changes
+
+
+jobs:
+  coordinate-runners:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # 💡 Map the fully qualified class paths directly as your matrix choices
+        framework-path: [
+          "com.thesis.automation.selenium.runners.SeleniumRunner",
+          "com.thesis.automation.playwright.runners.PlaywrightRunner"
+        ]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Start Local Web Server
+        run: |
+          cd bookstore-app
+          python3 -m http.server 5500 &
+          sleep 3
+
+      # 💡 ONE SINGLE STEP: Maven dynamically inputs whichever runner path is active on this machine!
+      - name: Execute Isolated Test Suite
+        working-directory: ./automation-framework
+        run: mvn clean test -Dtest=${{ matrix.framework-path }}
