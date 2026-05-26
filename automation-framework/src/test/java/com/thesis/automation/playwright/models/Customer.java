@@ -1,10 +1,10 @@
 package com.thesis.automation.playwright.models;
 
 public class Customer {
-        private final String fullName;
-        private final String address;
-        private final String zipCode;
-        private final String city;
+        private String fullName;
+        private String address;
+        private String zipCode;
+        private String city;
         private String creditCard;
         private String cvv;
 
