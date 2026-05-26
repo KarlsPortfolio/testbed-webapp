@@ -3,30 +3,36 @@ name: Deploy Web App to GitHub Pages
 on:
   push:
     branches:
-      - main  # Only triggers when pull-request is officially merged into main
+      - main  # Only triggers when code is merged into main
     paths:
       - 'bookstore-app/**'
 
+# 💡 CRITICAL: Grant the explicit system tokens required for native hosting
 permissions:
-  contents: write
+  contents: read
+  pages: write      # Gives GitHub permission to update your hosting space
+  id-token: write   # Gives GitHub permission to securely authenticate the deployment
+
+# Prevents multiple deployments from overlapping and crashing
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout Code Base
         uses: actions/checkout@v4
 
-      # Creates a sterile workspace and flattens the asset tree
-      - name: Prepare Flat Static Assets
-        run: |
-          mkdir public-site
-          cp -r bookstore-app/* public-site/
-
-      # Publishes the flat contents directly to the hosting root
-      - name: Deploy Subfolder to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      # Step 1: Tell GitHub to isolate your subfolder as the static asset source
+      - name: Upload Static Assets Artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: public-site
-          branch: gh-pages
-          clean: true # Forces the action to wipe out any ghost cache on the gh-pages branch
+          path: 'bookstore-app' # 🎯 Points directly inside your directory wrapper
+
+      # Step 2: Stream the assets directly to the hosting engine (No branch required!)
+      - name: Deploy to GitHub Pages Natively
+        uses: actions/deploy-pages@v4
