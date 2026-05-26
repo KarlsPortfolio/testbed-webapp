@@ -5,7 +5,7 @@ on:
     branches:
       - main  # 💡 ONLY runs when code officially lands on main
     paths:
-      - 'bookstore-app/**' # 💡 ONLY runs if the actual website files were modified
+      - '/.bookstore-app/**' # 💡 ONLY runs if the actual website files were modified
 permissions:
   contents: write
 

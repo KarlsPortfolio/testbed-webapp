@@ -5,15 +5,15 @@ on:
     branches:
       - main
     paths:
-      - 'automation-framework/**' # 💡 Trigger if testing code changes
-      - 'bookstore-app/**'        # 💡 Trigger if DOM/HTML/JS web-app code changes
+      - '/.automation-framework/**' # 💡 Trigger if testing code changes
+      - '/.bookstore-app/**'        # 💡 Trigger if DOM/HTML/JS web-app code changes
 
   pull_request:
     branches:
       - main
     paths:
-      - 'automation-framework/**' # 💡 Trigger on PR if testing code changes
-      - 'bookstore-app/**'        # 💡 Trigger on PR if DOM/HTML/JS web-app code changes
+      - '/.automation-framework/**' # 💡 Trigger on PR if testing code changes
+      - '/.bookstore-app/**'        # 💡 Trigger on PR if DOM/HTML/JS web-app code changes
 
 jobs:
   coordinate-runners:
