@@ -5,22 +5,27 @@ on:
     branches:
       - main
     paths:
-      - '/.automation-framework/**' # 💡 Trigger if testing code changes
-      - '/.bookstore-app/**'        # 💡 Trigger if DOM/HTML/JS web-app code changes
+      - 'automation-framework/**' # 💡 Trigger if testing code changes
+      - 'bookstore-app/**'        # 💡 Trigger if DOM/HTML/JS web-app code changes
 
   pull_request:
     branches:
       - main
     paths:
-      - '/.automation-framework/**' # 💡 Trigger on PR if testing code changes
-      - '/.bookstore-app/**'        # 💡 Trigger on PR if DOM/HTML/JS web-app code changes
+      - 'automation-framework/**' # 💡 Trigger on PR if testing code changes
+      - 'bookstore-app/**'        # 💡 Trigger on PR if DOM/HTML/JS web-app code changes
+
 
 jobs:
   coordinate-runners:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        framework-runner: [SeleniumRunner, PlaywrightRunner]
+        # 💡 Map the fully qualified class paths directly as your matrix choices
+        framework-path: [
+          "com.thesis.automation.selenium.runners.SeleniumRunner",
+          "com.thesis.automation.playwright.runners.PlaywrightRunner"
+        ]
 
     steps:
       - name: Checkout Code
@@ -31,22 +36,15 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: 'maven' # Speeds up subsequent runs by caching dependencies
+          cache: 'maven'
 
-  #1. Start the local server by jumping into the bookstore-app directory
       - name: Start Local Web Server
         run: |
           cd bookstore-app
           python3 -m http.server 5500 &
           sleep 3
 
-      # Runs Selenium Isolated Suite
-      - name: Execute Isolated Selenium Testing Suite
+      # 💡 ONE SINGLE STEP: Maven dynamically inputs whichever runner path is active on this machine!
+      - name: Execute Isolated Test Suite
         working-directory: ./automation-framework
-        run: mvn clean test -Dtest=com.thesis.automation.selenium.runners.SeleniumRunner
-
-      # Runs Playwright Isolated Suite
-      - name: Execute Isolated Playwright Testing Suite
-        working-directory: ./automation-framework
-        run: mvn clean test -Dtest=com.thesis.automation.playwright.runners.PlaywrightRunner
-
+        run: mvn clean test -Dtest=${{ matrix.framework-path }}
