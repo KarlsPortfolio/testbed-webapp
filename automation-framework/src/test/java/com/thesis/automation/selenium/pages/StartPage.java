@@ -20,6 +20,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
             wait.until(ExpectedConditions.elementToBeClickable(logoutButton)).click();
         }
 
+        public String getLoginGreetMsg() {
+            // Use the inherited 'wait' engine natively to guard the action
+            return wait.until(ExpectedConditions.presenceOfElementLocated(loginSuccessMsg)).getText();
+        }
+
 
     }
-}
+

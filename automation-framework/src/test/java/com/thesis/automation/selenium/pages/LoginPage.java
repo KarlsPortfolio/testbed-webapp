@@ -16,6 +16,7 @@ public class LoginPage extends BasePage {
     private final By passwordField = By.id("password");
     private final By loginButton = By.id("submit-btn");
     private final By errorMessage = By.id("login-error");
+    private final By navLoginButton = By.id("login-btn");
 
 
 
@@ -31,7 +32,25 @@ public class LoginPage extends BasePage {
                 .sendKeys(username);
         driver.findElement(passwordField).sendKeys(password);
         wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
+
     }
 
+    public boolean isLoginScreenDisplayed() {
+        try {
+            // Uses the inherited parent 'wait' engine to watch the DOM
+            wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField));
+            return driver.findElement(loginButton).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
+    public StartPage loginAsValidUser(String username, String password) {
+        driver.findElement(usernameField).sendKeys(username);
+        driver.findElement(passwordField).sendKeys(password);
+        driver.findElement(loginButton).click();
+        return new StartPage(driver);
+    }
 }
+
+

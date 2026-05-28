@@ -6,6 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,9 +16,9 @@ public class EstoreStepDefinitions {
     // AUTHENTICATION STEPS
     // ==========================================
 
-    @Given("I am on the login page {string}")
-    public void iAmOnTheLoginPage(String arg0) {
-        // Write code here that turns the phrase above into concrete actions
+    @Given("I am on the login page")
+    public void iAmOnTheLoginPage() {
+
 
     }
 
@@ -39,11 +40,7 @@ public class EstoreStepDefinitions {
 
     }
 
-    @Given("I am on the login page")
-    public void iAmOnTheLoginPage() {
-        // Write code here that turns the phrase above into concrete actions
 
-    }
 
     @When("I attempt to log in with credentials {string} {string}")
     public void iAttemptToLogInWithCredentials(String arg0, String arg1) {

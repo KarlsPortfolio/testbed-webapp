@@ -16,6 +16,9 @@ public class Hooks {
 
     @Before
     public void setUp() {
+        // Hook captures the System Property cleanly at launch
+        String baseUrl = System.getProperty("site.url", "https://karlsportfolio.github.io/testbed-webapp/");
+
         // Read configuration inputs from your Maven CLI execution switches
         String browser = System.getProperty("browser", "chrome");
         boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "false"));
@@ -46,6 +49,9 @@ public class Hooks {
             localDriver.manage().window().maximize();
         }
 
+        // 💡 The browser navigates immediately right at birth
+        localDriver.get(baseUrl);
+
         // 💡 Bind this specific browser instance to the active CPU thread memory space
         driverThreadLocal.set(localDriver);
     }
@@ -57,6 +63,7 @@ public class Hooks {
             localDriver.quit();
         }
         // 💡 Clean up the thread allocation to prevent system memory leaks
+        driverThreadLocal.get().quit();
         driverThreadLocal.remove();
     }
 

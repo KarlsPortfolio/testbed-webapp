@@ -11,7 +11,7 @@ Feature: User Authentication Portal
 
   @smoke @atomic
   Scenario: Log in as a valid user
-    Given I am on the login page "<page>"
+    Given I am on the login page
     When I login with valid credentials "validUser" "validPassword"
     Then I should be redirected to landing page
     And the logout button should be displayed
