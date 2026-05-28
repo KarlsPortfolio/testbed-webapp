@@ -24,7 +24,7 @@ public class AuthenticationSteps {
     public void verifyIAmOnTheLoginPage() {
 
         // 1. Fetch the driver (which Hooks already pointed at the base URL home page)
-        startPage = new StartPage(Hooks.getDriver());
+        startPage = new StartPage();
 
         // 2. Quietly execute the required navigation step in the background
         this.loginPage = startPage.navigateToLoginPage();

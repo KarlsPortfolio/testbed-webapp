@@ -1,6 +1,7 @@
 package com.thesis.automation.selenium.pages;
 
 
+import com.thesis.automation.selenium.stepDefinitions.Hooks;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,20 +15,20 @@ public abstract class BasePage {
     //Selectors
     private final By navLoginButton = By.id("login-btn");
 
-    // 💡 Constructor 1: The standard default
-    public BasePage(WebDriver driver) {
-        this(driver, 5); // Automatically chains to Constructor 2 with a default of 5 seconds
+    // 💡 Constructor 1: The standard default (Takes 0 arguments)
+    public BasePage() {
+        // Automatically calls Constructor 2 below, passing a default of 5 seconds
+        this(5);
     }
 
-    // 💡 Constructor 2: The flexible controller
-    public BasePage(WebDriver driver, int timeoutInSeconds) {
-        this.driver = driver;
-        // Instantiates a brand-new wait engine tailored exactly to the requested speed
+    // 💡 Constructor 2: The flexible time controller (Takes only the timeout value)
+    public BasePage(int timeoutInSeconds) {
+        this.driver = Hooks.getDriver(); // Pulls the shared driver from the global vault
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
     }
 
     public LoginPage navigateToLoginPage() {
         wait.until(ExpectedConditions.elementToBeClickable(navLoginButton)).click();
-        return new LoginPage(driver);
+        return new LoginPage();
     }
 }

@@ -20,9 +20,9 @@ public class LoginPage extends BasePage {
 
 
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage() {
 
-        super(driver); // 🎯 Automatically gets a clean, isolated 5-second wait
+        super(); // 🎯 Automatically gets a clean, isolated 5-second wait
             }
 
 
@@ -49,7 +49,7 @@ public class LoginPage extends BasePage {
         driver.findElement(usernameField).sendKeys(username);
         driver.findElement(passwordField).sendKeys(password);
         driver.findElement(loginButton).click();
-        return new StartPage(driver);
+        return new StartPage();
     }
 }
 

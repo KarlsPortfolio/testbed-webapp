@@ -11,8 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
         private final By loginSuccessMsg = By.id("header-user-name");
         private final By logoutBtn = By.id("logout-btn");
 
-        public StartPage(WebDriver driver) {
-            super(driver); // Automatically initializes the driver and WebDriverWait from the parent
+        public StartPage() {
+            super(); // Automatically initializes the driver and WebDriverWait from the parent
         }
 
         public void clickLogout() {
