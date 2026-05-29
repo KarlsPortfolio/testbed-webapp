@@ -10,11 +10,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
         //private final By logoutButton = By.id("logout-btn");
         private final By loginSuccessMsg = By.id("header-user-name");
-        private final By storeTabActive = By.cssSelector("#store-tab .header__nav-btn header__nav-btn--active");
+        private final By storeTabActive = By.cssSelector("#store-tab.header__nav-btn--active");
 
 
         public StartPage() {
-            super(); // Automatically initializes the driver and WebDriverWait from the parent
+            super(10); // Automatically initializes the driver and WebDriverWait from the parent
         }
 
         public void clickLogout() {
@@ -23,8 +23,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
         }
 
         public WebElement presenceOfLogoutBtn() {
-            // Use the inherited 'wait' engine natively to guard the action
-            return wait.until(ExpectedConditions.elementToBeClickable(navLogoutButton));
+
+                return wait.until(ExpectedConditions.elementToBeClickable(navLogoutButton));
+
+        }
+
+        public Boolean invisibilityOfLogoutBtn() {
+
+            return wait.until(ExpectedConditions.invisibilityOfElementLocated(navLogoutButton));
+
         }
 
         public WebElement presenceOfLoginBtn() {

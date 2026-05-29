@@ -14,8 +14,8 @@ public abstract class BasePage {
 
     //Selectors
     //protected final By navLoginButton = By.cssSelector("[data-testid='login-submit']");
-    protected final By navLoginButton = By.cssSelector("#auth-button [name='login-btn']");
-    protected final By navLogoutButton = By.cssSelector("#auth-button [name='logout-btn']");
+    protected final By navLoginButton = By.cssSelector("#auth-button[name='login-btn']");
+    protected final By navLogoutButton = By.cssSelector("#auth-button[name='logout-btn']");
     protected final By navCartIconButton = By.id("nav-cart-icon");
 
     // 💡 Constructor 1: The standard default (Takes 0 arguments)

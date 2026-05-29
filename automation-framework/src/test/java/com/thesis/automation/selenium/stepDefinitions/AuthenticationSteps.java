@@ -68,8 +68,14 @@ public class AuthenticationSteps {
     }
 
     @Given("I am securely logged into the e-store application")
-    public void iAmSecurelyLoggedIntoTheEStoreApplication() {
-        this.startPage = this.loginPage.loginAsValidUser("validUser", "validPassword");
+    public void iAmSecurelyLoggedIntoTheEStoreApplication() throws InterruptedException {
+        // 1. Fetch the driver (which Hooks already pointed at the base URL home page)
+        startPage = new StartPage();
+
+        // 2. Quietly execute the required navigation step in the background
+        this.loginPage = startPage.navigateToLoginPage();
+
+        this.startPage = loginPage.loginAsValidUser("validUser","validPassword");
 
     }
 
@@ -88,7 +94,7 @@ public class AuthenticationSteps {
 
     @And("the logout button should not be displayed")
     public void theLogoutButtonShouldNotBeDisplayed() {
-        assertFalse(this.startPage.presenceOfLogoutBtn().isDisplayed(), "The bookstore application failed to hide the logout button");
+        assertTrue(this.startPage.invisibilityOfLogoutBtn(),"The bookstore application failed to hide the logout button");
 
     }
 

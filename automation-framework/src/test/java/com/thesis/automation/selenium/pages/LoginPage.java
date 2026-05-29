@@ -42,6 +42,10 @@ public class LoginPage extends BasePage {
     }
 
     public StartPage loginAsValidUser(String username, String password) {
+        //Clearing fields before text input to support multiple iterations
+        driver.findElement(usernameField).clear();
+        driver.findElement(passwordField).clear();
+
         driver.findElement(usernameField).sendKeys(username);
         driver.findElement(passwordField).sendKeys(password);
         driver.findElement(loginButton).click();
