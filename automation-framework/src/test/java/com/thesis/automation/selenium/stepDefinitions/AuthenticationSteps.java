@@ -7,7 +7,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthenticationSteps {
 
@@ -43,51 +43,52 @@ public class AuthenticationSteps {
 
     @Then("I should be redirected to landing page")
     public void iShouldBeRedirectedToLandingPage() {
-        // Write code here that turns the phrase above into concrete actions
+        assertTrue(this.startPage.isStoreActive().isDisplayed(),"The bookstore application failed to render the start page layout!");
 
     }
 
     @And("the logout button should be displayed")
     public void theLogoutButtonShouldBeDisplayed() {
-        // Write code here that turns the phrase above into concrete actions
+        assertTrue(this.startPage.presenceOfLogoutBtn().isDisplayed(), "The bookstore application failed to render the logout button");
 
     }
 
 
 
     @When("I attempt to log in with credentials {string} {string}")
-    public void iAttemptToLogInWithCredentials(String arg0, String arg1) {
-        // Write code here that turns the phrase above into concrete actions
+    public void iAttemptToLogInWithCredentials(String username, String password) {
+        this.loginPage = startPage.navigateToLoginPage();
+        this.loginPage.loginWithInvalidCredentials(username,password);
 
     }
 
     @Then("I should see error message stating {string}")
-    public void iShouldSeeErrorMessageStating(String arg0) {
-        // Write code here that turns the phrase above into concrete actions
-
+    public void iShouldSeeErrorMessageStating(String expected) {
+        assertTrue(this.loginPage.getErrorMessage().contains(expected));
     }
 
     @Given("I am securely logged into the e-store application")
     public void iAmSecurelyLoggedIntoTheEStoreApplication() {
-        // Write code here that turns the phrase above into concrete actions
+        this.startPage = this.loginPage.loginAsValidUser("validUser", "validPassword");
 
     }
 
     @When("I click the logout button")
     public void iClickTheLogoutButton() {
-        // Write code here that turns the phrase above into concrete actions
+        this.startPage.clickLogout();
 
     }
 
     @Then("the login button should be displayed")
     public void theLoginButtonShouldBeDisplayed() {
-        // Write code here that turns the phrase above into concrete actions
+        assertTrue(this.startPage.presenceOfLoginBtn().isDisplayed(), "The bookstore application failed to render the login button");
+
 
     }
 
     @And("the logout button should not be displayed")
     public void theLogoutButtonShouldNotBeDisplayed() {
-        // Write code here that turns the phrase above into concrete actions
+        assertFalse(this.startPage.presenceOfLogoutBtn().isDisplayed(), "The bookstore application failed to hide the logout button");
 
     }
 
