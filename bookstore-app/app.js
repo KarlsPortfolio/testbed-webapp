@@ -179,6 +179,7 @@ function updateAuthUi() {
     authButton.textContent = "Logout";
     authButton.dataset.testid = "logout-btn";
     authButton.name = "logout-btn";
+    
   } else {
     headerUserName.textContent = "";
     authButton.textContent = "Login";
