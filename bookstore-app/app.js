@@ -178,10 +178,12 @@ function updateAuthUi() {
     headerUserName.textContent = `Hi, ${state.currentUser}`;
     authButton.textContent = "Logout";
     authButton.dataset.testid = "logout-btn";
+    authButton.name = "logout-btn";
   } else {
     headerUserName.textContent = "";
     authButton.textContent = "Login";
     authButton.dataset.testid = "login-btn";
+    authButton.name = "login-btn";
   }
 }
 
