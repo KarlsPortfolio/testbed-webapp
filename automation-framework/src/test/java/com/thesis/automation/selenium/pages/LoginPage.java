@@ -10,22 +10,14 @@ public class LoginPage extends BasePage {
     private final By passwordField = By.id("login-password");
     private final By loginButton = By.id("login-submit");
     private final By errorMessage = By.id("login-error");
-    //private final By navLoginButton = By.id("login-btn");
+
 
 
     public LoginPage() {
 
-        super(); // 🎯 Automatically gets a clean, isolated 5-second wait
+        super(); // Automatically gets a clean, isolated 5-second wait
     }
 
-
-    public void logins(String username, String password) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField))
-                .sendKeys(username);
-        driver.findElement(passwordField).sendKeys(password);
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
-
-    }
 
     public String getErrorMessage() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).getText();

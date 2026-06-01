@@ -16,15 +16,17 @@ public abstract class BasePage {
     //protected final By navLoginButton = By.cssSelector("[data-testid='login-submit']");
     protected final By navLoginButton = By.cssSelector("#auth-button[name='login-btn']");
     protected final By navLogoutButton = By.cssSelector("#auth-button[name='logout-btn']");
-    protected final By navCartIconButton = By.id("nav-cart-icon");
+    protected final By navCartIconButton = By.id("cart-icon");
+    protected final By navCheckoutTab = By.id("checkout-tab");
+    protected final By cartCountBadge = By.id("cart-count-badge");
 
-    // 💡 Constructor 1: The standard default (Takes 0 arguments)
+    //Constructor 1: The standard default (Takes 0 arguments)
     public BasePage() {
         // Automatically calls Constructor 2 below, passing a default of 5 seconds
         this(5);
     }
 
-    // 💡 Constructor 2: The flexible time controller (Takes only the timeout value)
+    // Constructor 2: The flexible time controller (Takes only the timeout value)
     public BasePage(int timeoutInSeconds) {
         this.driver = Hooks.getDriver(); // Pulls the shared driver from the global vault
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
@@ -34,4 +36,19 @@ public abstract class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(navLoginButton)).click();
         return new LoginPage();
     }
+
+    public CheckoutPage navigateToCheckoutPage() {
+        wait.until(ExpectedConditions.elementToBeClickable(navCheckoutTab)).click();
+        return new CheckoutPage();
+    }
+
+    public String getCartCount(){
+        return wait.until(ExpectedConditions.presenceOfElementLocated(cartCountBadge)).getText();
+    }
+
+    public CartModal openCartModal() {
+        driver.findElement(navCartIconButton).click();
+        return new CartModal();
+    }
+
 }
