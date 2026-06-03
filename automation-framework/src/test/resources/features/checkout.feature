@@ -25,5 +25,5 @@ Feature: Checkout Input Validation
       | Address      | Address must be at least 6 characters. | Verifies empty street address constraint  |
       | Zip-Code     | Zip code must be exactly 5 digits.     | Verifies empty zip/postal code constraint |
       | City         | Enter a valid city.                    | Verifies empty city field constraint      |
-      | Credit-Card  | Credit card must be 16 digits (####-####-####-####).         | Verifies empty city field constraint      |
+      | Credit-Card  | Card number must be 16 digits (####-####-####-####).         | Verifies empty city field constraint      |
       | CVV          | CVV must be exactly 3 digits.          | Verifies empty city field constraint      |
