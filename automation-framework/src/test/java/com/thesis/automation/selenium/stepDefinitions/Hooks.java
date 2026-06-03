@@ -27,6 +27,10 @@ public class Hooks {
                 options.addArguments("--headless=new");
                 options.addArguments("--disable-gpu");
                 options.addArguments("--window-size=1920,1080");
+
+                // 🚀 CI STABILITY HACKS: Prevents Chrome from crashing inside Ubuntu runners
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
             }
             driver = new ChromeDriver(options);
 
