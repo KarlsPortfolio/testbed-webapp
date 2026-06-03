@@ -15,24 +15,35 @@ Feature: Cart Management Operations
 
     Examples:
       | bookTitle                                              | description                      |
-      | Stars and Beyond                                       | Baseline alphanumeric title      |
+      | Hidden Letters                                       | Baseline alphanumeric title      |
       | C++: The Complete Reference                            | Special characters & punctuation |
       | Designing Data-Intensive Applications: The Big Guide   | Extreme string boundary length   |
 
   @atomic
   Scenario: Remove a book from the cart
-    Given I have the book "Introduction to Java" in my cart
-    When I remove the book "Introduction to Java" from my cart
+    Given I have the book "C++: The Complete Reference" in my cart
+    When I remove the book "C++: The Complete Reference" from my cart
     Then my shopping cart should be completely empty
 
   @atomic
-  Scenario: Adjust item quantity within the cart
-    Given I have the book "Introduction to Java" in my cart
-    When I change the quantity of "Introduction to Java" to "3"
-    Then my cart subtotal should dynamically update for "3" items
+  Scenario Outline: Dynamic subtotal calculation when updating item quantities
+    Given I have the following item in my cart:
+      | bookTitle   | unitPrice   | quantity   |
+      | <bookTitle> | <unitPrice> | <startQty> |
+    When I change the quantity of "<bookTitle>" to "<newQty>"
+    Then my cart subtotal should be "<expectedTotal>"
+
+    Examples:
+      | bookTitle                   | unitPrice | startQty | newQty | expectedTotal |
+      | C++: The Complete Reference | $33.20    | 1        | 3      | $99.60         |
+      | The Silent River            | $12.99    | 1        | 2      | $25.98         |
 
   @atomic
   Scenario: Clear the entire cart contents
-    Given I have multiple books in my shopping cart
+    Given the following items are in my cart:
+      | bookTitle                | quantity  |
+      | The Silent River           | 1 |
+      | C++: The Complete Reference  | 2 |
+      | Moonlit Stories       | 3 |
     When I clear all items from my cart
     Then my shopping cart should be completely empty

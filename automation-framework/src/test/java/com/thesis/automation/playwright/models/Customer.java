@@ -1,15 +1,17 @@
 package com.thesis.automation.playwright.models;
 
 public class Customer {
-        private String fullName;
-        private String address;
-        private String zipCode;
-        private String city;
-        private String creditCard;
-        private String cvv;
+        private final String fullName;
+        private final String address;
+        private final String zipCode;
+        private final String city;
+        private final String creditCard;
+        private final String cvv;
+        private final String email;
 
         public Customer(String fullName, String email, String address, String city, String zipCode, String creditCard, String cvv) {
             this.fullName = fullName;
+            this.email = email;
             this.address = address;
             this.zipCode = zipCode;
             this.city = city;
@@ -42,4 +44,7 @@ public class Customer {
             return cvv;
         }
 
+    public String getEmail() {
+        return email;
+    }
 }

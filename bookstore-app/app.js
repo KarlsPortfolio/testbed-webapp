@@ -264,7 +264,7 @@ function validateField(inputElement, showUI = true) {
     if (!/^\d{5}$/.test(value)) { message = "Zip code must be exactly 5 digits."; isValid = false; }
   } else if (inputElement.id === "credit-card") {
     const cardDigits = value.replace(/\D/g, "");
-    if (cardDigits.length !== 16) { message = "Credit card must be 16 digits (####-####-####-####)."; isValid = false; }
+    if (cardDigits.length !== 16) { message = "Card number must be 16 digits (####-####-####-####)."; isValid = false; }
   } else if (inputElement.id === "cvv") {
     if (!/^\d{3}$/.test(value)) { message = "CVV must be exactly 3 digits."; isValid = false; }
   }

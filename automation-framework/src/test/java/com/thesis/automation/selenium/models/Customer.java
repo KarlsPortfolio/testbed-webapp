@@ -5,11 +5,13 @@ public class Customer {
     private final String address;
     private final String zipCode;
     private final String city;
-    private String creditCard;
-    private String cvv;
+    private final String creditCard;
+    private final String cvv;
+    private final String email;
 
     public Customer(String fullName, String email, String address, String city, String zipCode, String creditCard, String cvv) {
         this.fullName = fullName;
+        this.email = email;
         this.address = address;
         this.zipCode = zipCode;
         this.city = city;
@@ -40,6 +42,10 @@ public class Customer {
 
     public String getCvv() {
         return cvv;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
 

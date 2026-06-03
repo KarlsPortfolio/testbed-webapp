@@ -40,11 +40,16 @@ jobs:
 
       - name: Start Local Web Server
         run: |
-          cd bookstore-app
-          python3 -m http.server 5500 &
-          sleep 3
+          python3 -m http.server 8080 --directory ./bookstore-app &
+          echo "Waiting for local server to boot up..."
+          sleep 5 # Give it an extra couple seconds to stabilize on the virtual runner
 
       # 💡 ONE SINGLE STEP: Maven dynamically inputs whichever runner path is active on this machine!
       - name: Execute Isolated Test Suite
         working-directory: ./automation-framework
-        run: mvn clean test -Dtest=${{ matrix.framework-path }}
+        run: |
+          mvn clean test \
+            -Dtest=${{ matrix.framework-path }} \
+            -Dbrowser=chrome \
+            -Dheadless=true \
+            -Dsite.url=http://localhost:8080

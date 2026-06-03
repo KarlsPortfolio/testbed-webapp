@@ -9,7 +9,7 @@ When I add the following books to my cart:
 | Hidden Letters                                       | 1        |
 | C++: The Complete Reference                          | 3        |
 | Designing Data-Intensive Applications: The Big Guide | 1        |
-And I proceed to the checkout portal
-And I complete the shipping form using the "validCustomer" profile
+And I am proceeding through the checkout process
+And I complete the shipping form using a valid profile
 And I finalize the transaction by placing the order
 Then I should be redirected to the order confirmation summary page
