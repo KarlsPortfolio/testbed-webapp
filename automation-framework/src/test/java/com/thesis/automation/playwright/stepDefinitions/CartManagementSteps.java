@@ -15,10 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartManagementSteps {
-    // Instantiated cleanly at birth using the active, thread-isolated driver from Hooks
-    private LoginPage loginPage;
-    private StartPage startPage;
-    private CartModal cartModal;
 
 
 
