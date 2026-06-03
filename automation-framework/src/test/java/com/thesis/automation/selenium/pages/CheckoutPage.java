@@ -11,7 +11,7 @@ public class CheckoutPage extends BasePage{
 
     public CheckoutPage() {
 
-        super(); // 🎯 Automatically gets a clean, isolated 5-second wait
+        super(); // Automatically gets a clean, isolated 5-second wait
     }
 
 

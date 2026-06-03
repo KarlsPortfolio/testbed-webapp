@@ -17,18 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class CheckoutSteps {
 
-    // 1. Instantiated cleanly at birth using the active, thread-isolated driver from Hooks
-    private LoginPage loginPage;
+    //Instantiated cleanly at birth using the active, thread-isolated driver from Hooks
     private StartPage startPage = new StartPage();
     private CheckoutPage checkoutPage;
 
-
-
-    @And("I have items in my shopping cart")
-    public void iHaveItemsInMyShoppingCart() {
-        // Write code here that turns the phrase above into concrete actions
-
-    }
 
     @And("I am proceeding through the checkout process")
     public void iAmProceedingThroughTheCheckoutProcess() {
@@ -58,10 +50,9 @@ public class CheckoutSteps {
     @And("I have the following items in my shopping cart:")
     public void iHaveTheFollowingItemsInMyShoppingCart(List<Map<String, String>> booksTable) throws InterruptedException {
 
-        //StartPage startPage = new StartPage();
         for (Map<String, String> row : booksTable) {
 
-            // 2. Extract values using your Gherkin column headers as the keys
+            // Extract values using your Gherkin column headers as the keys
             String title = row.get("bookTitle");
             int quantity = Integer.parseInt(row.get("quantity"));
 

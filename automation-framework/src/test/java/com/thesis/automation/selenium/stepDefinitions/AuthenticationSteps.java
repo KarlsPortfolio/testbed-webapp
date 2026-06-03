@@ -11,22 +11,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthenticationSteps {
 
-    // 1. Instantiated cleanly at birth using the active, thread-isolated driver from Hooks
+    // Instantiated cleanly at birth using the active, thread-isolated driver from Hooks
     private LoginPage loginPage;
     private StartPage startPage;
 
 
-    // ==========================================
-    // AUTHENTICATION STEPS
-    // ==========================================
-
     @Given("I am on the login page")
     public void verifyIAmOnTheLoginPage() {
 
-        // 1. Fetch the driver (which Hooks already pointed at the base URL home page)
+        // Fetch the driver (which Hooks already pointed at the base URL home page)
         startPage = new StartPage();
 
-        // 2. Quietly execute the required navigation step in the background
+        //Quietly execute the required navigation step in the background
         this.loginPage = startPage.navigateToLoginPage();
 
 
@@ -69,10 +65,10 @@ public class AuthenticationSteps {
 
     @Given("I am securely logged into the e-store application")
     public void iAmSecurelyLoggedIntoTheEStoreApplication() throws InterruptedException {
-        // 1. Fetch the driver (which Hooks already pointed at the base URL home page)
+        // Fetch the driver (which Hooks already pointed at the base URL home page)
         startPage = new StartPage();
 
-        // 2. Quietly execute the required navigation step in the background
+        // Quietly execute the required navigation step in the background
         this.loginPage = startPage.navigateToLoginPage();
 
         this.startPage = loginPage.loginAsValidUser("validUser","validPassword");

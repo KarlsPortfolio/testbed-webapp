@@ -1,6 +1,7 @@
 package com.thesis.automation.selenium.stepDefinitions;
 
 import com.thesis.automation.selenium.factory.CustomerFactory;
+import com.thesis.automation.selenium.pages.CartModal;
 import com.thesis.automation.selenium.pages.CheckoutPage;
 import com.thesis.automation.selenium.pages.StartPage;
 import com.thesis.automation.selenium.pages.SuccessPage;
@@ -19,30 +20,39 @@ public class EndToEndJourneySteps {
     StartPage startPage = new StartPage();
     CheckoutPage checkoutPage;
     SuccessPage successPage;
+    CartModal cartModal;
 
     @And("I have a completely empty shopping cart")
-    public void iHaveACompletelyEmptyShoppingCart() {
-        this.startPage.clearEntireCartSilently();
+    public void iHaveACompletelyEmptyShoppingCart()  {
 
-        assertTrue(this.startPage.isCartEmpty().isDisplayed());
+        this.cartModal = this.startPage.openCartModal();
 
-        this.startPage.closeCartButton();
+
+        this.cartModal.clearEntireCartSilently();
+
+
+        assertTrue(this.cartModal.isCartEmpty().isDisplayed());
+
+        this.cartModal.closeCartButton();
+
+
 
     }
 
     @When("I add the following books to my cart:")
     public void iAddTheFollowingBooksToMyCart(List<Map<String, String>> booksTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // 1. Loop through each row of the Gherkin table
+
+        StartPage activeStartPage = new StartPage();
+
         for (Map<String, String> row : booksTable) {
 
 
-                // 2. Extract values using your Gherkin column headers as the keys
+                // Extract values using your Gherkin column headers as the keys
                 String title = row.get("bookTitle");
                 int quantity = Integer.parseInt(row.get("quantity"));
 
                 for (int i = 0; i < quantity; i++) {
-                    this.startPage.addToCart(title);
+                    activeStartPage.addToCart(title);
                 }
             }
         }
@@ -51,16 +61,10 @@ public class EndToEndJourneySteps {
 
     @And("I proceed to the checkout portal")
     public void iProceedToTheCheckoutPortal() {
-        this.checkoutPage = this.startPage.navigateToCheckoutPage();
+        this.checkoutPage = this.checkoutPage.navigateToCheckoutPage();
 
     }
 
-    @And("I complete the shipping form using the {string} profile")
-    public void iCompleteTheShippingFormUsingTheProfile() {
-
-
-
-    }
 
     @And("I finalize the transaction by placing the order")
     public void iFinalizeTheTransactionByPlacingTheOrder() {
@@ -77,7 +81,7 @@ public class EndToEndJourneySteps {
     }
 
     @And("I complete the shipping form using a valid profile")
-    public void iCompleteTheShippingFormUsingAValidProfile() throws InterruptedException {
+    public void iCompleteTheShippingFormUsingAValidProfile()  {
         checkoutPage = new CheckoutPage();
         this.checkoutPage.fillCheckoutFieldsCustomer(CustomerFactory.createValidCustomer(), false);
     }

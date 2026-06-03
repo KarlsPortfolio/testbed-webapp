@@ -13,14 +13,13 @@ public abstract class BasePage {
     protected WebDriverWait wait;
 
     //Selectors
-    //protected final By navLoginButton = By.cssSelector("[data-testid='login-submit']");
     protected final By navLoginButton = By.cssSelector("#auth-button[name='login-btn']");
     protected final By navLogoutButton = By.cssSelector("#auth-button[name='logout-btn']");
     protected final By navCartIconButton = By.id("cart-icon");
     protected final By navCheckoutTab = By.id("checkout-tab");
     protected final By cartCountBadge = By.id("cart-count-badge");
 
-    //Constructor 1: The standard default (Takes 0 arguments)
+
     public BasePage() {
         // Automatically calls Constructor 2 below, passing a default of 5 seconds
         this(5);
@@ -47,7 +46,7 @@ public abstract class BasePage {
     }
 
     public CartModal openCartModal() {
-        driver.findElement(navCartIconButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(cartCountBadge)).click();
         return new CartModal();
     }
 

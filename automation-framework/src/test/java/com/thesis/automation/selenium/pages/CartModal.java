@@ -17,22 +17,18 @@ public class CartModal extends BasePage {
 
 
     public CartModal() {
-        super(10); // Inherits global driver and default 5-second wait engine
+        super(10); // Inherits global driver and sets custom 10-second wait engine
 
-        //  Guardrail ensures the modal is physically open before proceeding
+
 
     }
 
-    private final By bookTitles = By.className("book-card__title-button");
-    private final By booksArticles = By.className("book-card");
-    private final By modalProductPage = By.cssSelector("#pdp-body .button");
+
     private final By cartCountBadge = By.id("cart-count-badge");
-    private final By addToCartBtn = By.id("add-to-cart-");
     private final By modalCartBookTitle = By.className("cart-modal__item-title");
     private final By modalCartItems = By.className("cart-modal__item");
     private final By emptyCartMessage = By.id("empty-cart-message");
     private final By closeCartBtn = By.id("close-cart");
-    private final By modalCartQuantityFieldV3 = By.className("cart-modal__qty-input");
     private final By cartSubtotal = By.id("cart-total");
 
 
@@ -46,13 +42,13 @@ public class CartModal extends BasePage {
     }
 
     public void closeCartButton(){
-        driver.findElement(closeCartBtn).click();
+        wait.until(ExpectedConditions.elementToBeClickable(closeCartBtn)).click();
 
         wait.until(ExpectedConditions.invisibilityOfElementLocated(modalContainer));
     }
 
     public void clearEntireCartSilently() {
-        wait.until(ExpectedConditions.elementToBeClickable(cartCountBadge)).click();
+
         // Locate the dynamic list of whatever remove buttons are currently visible
         List<WebElement> removeButtons = driver.findElements(By.cssSelector("[id^='remove-item-']"));
 
@@ -66,34 +62,27 @@ public class CartModal extends BasePage {
 
     }
 
-    public void increaseQuantityInCart(String bookTitle, String amount) throws InterruptedException {
+    public void increaseQuantityInCart(String bookTitle, String amount) {
         List<WebElement> books = driver.findElements(modalCartItems);
 
         By cartQuantityField = null;
-        By cartQuantityFieldV2 = null;
-        By quantityField = null;
-        char bookArticleID = 'k';
 
 
         for(WebElement book : books){
             String currentTitle = wait.until(ExpectedConditions.presenceOfElementLocated(modalCartBookTitle)).getText();
-            //System.out.println(currentTitle);
+
             if(currentTitle.equalsIgnoreCase(bookTitle)){
                 System.out.println("Book title exists!");
 
-                String bookId = book.getAttribute("data-book-id");
-
-                String bookIds = book.getAttribute("id");
-                String itemID[] = bookIds.split("-");
+                String bookId = book.getAttribute("id");
+                String itemID[] = bookId.split("-");
 
                 System.out.println(itemID[2]);
 
-                char id = bookIds.charAt(bookIds.length()-1);
-                bookArticleID = id;
+                char id = bookId.charAt(bookId.length()-1);
+
 
                 cartQuantityField = By.id("cart-qty-"+ id);
-                cartQuantityFieldV2 = By.cssSelector("input#cart-qty-"+id);
-                quantityField = By.cssSelector("[data-testid='cart-quantity-input-" + id + "']");
 
 
             }
@@ -102,16 +91,10 @@ public class CartModal extends BasePage {
 
         }
 
-        String cssSelector = "[data-testid='cart-quantity-input-" + bookArticleID + "']";
-        By qntField = By.cssSelector(cssSelector);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(cartQuantityField)).click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(quantityField)).click();
-
-        driver.findElement(qntField).sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        driver.findElement(qntField).sendKeys(amount);
-
-        By qtyField = By.cssSelector(cssSelector);
-
+        driver.findElement(cartQuantityField).sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        driver.findElement(cartQuantityField).sendKeys(amount);
 
 
 
@@ -125,7 +108,7 @@ public class CartModal extends BasePage {
         By cartItemId = null;
         for(WebElement book : books){
             String currentTitle = wait.until(ExpectedConditions.presenceOfElementLocated(modalCartBookTitle)).getText();
-            //System.out.println(currentTitle);
+
             if(currentTitle.equalsIgnoreCase(bookTitle)){
                 System.out.println("Book title exists!");
 
@@ -133,7 +116,6 @@ public class CartModal extends BasePage {
                 String bookIds = book.getAttribute("id");
                 String itemID[] = bookIds.split("-");
 
-                System.out.println(itemID[2]);
 
                 char id = bookIds.charAt(bookIds.length()-1);
 
@@ -150,12 +132,11 @@ public class CartModal extends BasePage {
 
     }
 
-    public String getSubTotal(String expectedSubtotal) throws InterruptedException {
+    public String getSubTotal(String expectedSubtotal)  {
 
 
         driver.findElement(cartModalHeader).click();
 
-        // 🛡️ STEP 2: Use your target-driven wait strategy.
         // Selenium will now comfortably block execution until the UI completes the recalculation.
         wait.until(ExpectedConditions.textToBePresentInElementLocated(cartSubtotal, expectedSubtotal));
 
@@ -169,6 +150,8 @@ public class CartModal extends BasePage {
 
 
     }
+
+
 
 
 
