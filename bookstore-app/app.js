@@ -182,6 +182,7 @@ function updateAuthUi() {
   } else {
     headerUserName.textContent = "";
     authButton.textContent = "Login";
+    authButton.dataset.testid = "login-btn";
     authButton.name = "login-btn";
   }
 }
