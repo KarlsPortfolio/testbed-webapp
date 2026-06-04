@@ -1,17 +1,17 @@
 package com.thesis.automation.playwright.stepDefinitions;
 
-import com.thesis.automation.selenium.factory.CustomerFactory;
-import com.thesis.automation.selenium.pages.CartModal;
-import com.thesis.automation.selenium.pages.CheckoutPage;
-import com.thesis.automation.selenium.pages.StartPage;
-import com.thesis.automation.selenium.pages.SuccessPage;
+import com.thesis.automation.playwright.factory.CustomerFactory;
+import com.thesis.automation.playwright.pages.CartModal;
+import com.thesis.automation.playwright.pages.CheckoutPage;
+import com.thesis.automation.playwright.pages.StartPage;
+import com.thesis.automation.playwright.pages.SuccessPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import java.util.List;
 import java.util.Map;
-
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EndToEndJourneySteps {
@@ -24,15 +24,18 @@ public class EndToEndJourneySteps {
     @And("I have a completely empty shopping cart")
     public void iHaveACompletelyEmptyShoppingCart()  {
 
-//        this.cartModal = this.startPage.openCartModal();
+       this.cartModal = this.startPage.openCartModal();
 //
 //
-//        this.cartModal.clearEntireCartSilently();
+        this.cartModal.clearEntireCartSilently();
+
+        this.cartModal.closeCartButton();
+
+
 //
 //
-//        assertTrue(this.cartModal.isCartEmpty().isDisplayed());
+        assertThat(this.cartModal.getModalContainer()).isHidden();
 //
-//        this.cartModal.closeCartButton();
 
 
 
@@ -41,39 +44,40 @@ public class EndToEndJourneySteps {
     @When("I add the following books to my cart:")
     public void iAddTheFollowingBooksToMyCart(List<Map<String, String>> booksTable) {
 
-//        StartPage activeStartPage = new StartPage();
+        StartPage activeStartPage = new StartPage();
 //
-//        for (Map<String, String> row : booksTable) {
+        for (Map<String, String> row : booksTable) {
 //
 //
 //                // Extract values using your Gherkin column headers as the keys
-//                String title = row.get("bookTitle");
-//                int quantity = Integer.parseInt(row.get("quantity"));
+                String title = row.get("bookTitle");
+                int quantity = Integer.parseInt(row.get("quantity"));
 //
-//                for (int i = 0; i < quantity; i++) {
-//                    activeStartPage.addToCart(title);
-//                }
-//            }
+                for (int i = 0; i < quantity; i++) {
+                    activeStartPage.addToCart(title);
+                }
+            }
         }
 
 
 
     @And("I proceed to the checkout portal")
     public void iProceedToTheCheckoutPortal() {
-//        this.checkoutPage = this.checkoutPage.navigateToCheckoutPage();
+        this.checkoutPage = this.checkoutPage.navigateToCheckoutPage();
 
     }
 
 
     @And("I finalize the transaction by placing the order")
     public void iFinalizeTheTransactionByPlacingTheOrder() {
-//        this.successPage = this.checkoutPage.clickSubmitButton();
+        this.successPage = this.checkoutPage.clickSubmitButton();
 
     }
 
     @Then("I should be redirected to the order confirmation summary page")
     public void iShouldBeRedirectedToTheOrderConfirmationSummaryPage() {
 //        assertTrue(this.successPage.getSuccessMessage().isDisplayed());
+        assertThat(this.successPage.getSuccessMessageLocator()).isVisible();
 
 
 
@@ -81,7 +85,7 @@ public class EndToEndJourneySteps {
 
     @And("I complete the shipping form using a valid profile")
     public void iCompleteTheShippingFormUsingAValidProfile()  {
-//        checkoutPage = new CheckoutPage();
-//        this.checkoutPage.fillCheckoutFieldsCustomer(CustomerFactory.createValidCustomer(), false);
+        checkoutPage = new CheckoutPage();
+        this.checkoutPage.fillCheckoutFieldsCustomer(CustomerFactory.createValidCustomer());
     }
 }

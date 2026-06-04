@@ -11,15 +11,11 @@ import java.util.List;
 // 💡 Inheriting from BasePage
 public class StartPage extends BasePage {
 
-    //private final By logoutButton = By.id("logout-btn");
+
     private final By loginSuccessMsg = By.id("header-user-name");
     private final By storeTabActive = By.cssSelector("#store-tab.header__nav-btn--active");
     private final By bookTitles = By.className("book-card__title-button");
-    private final By cartCountBadge = By.id("cart-count-badge");
-    private final By modalCartBookTitle = By.className("cart-modal__item-title");
-    private final By modalCartItems = By.className("cart-modal__item");
-    private final By emptyCartMessage = By.id("empty-cart-message");
-    private final By closeCartBtn = By.id("close-cart");
+
 
 
     public StartPage() {

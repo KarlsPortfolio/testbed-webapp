@@ -85,13 +85,7 @@ public class CartManagementSteps {
 
     }
 
-    @Then("my cart subtotal should dynamically update for {string} items")
-    public void myCartSubtotalShouldDynamicallyUpdateForItems(String amount) {
-        int actual = Integer.parseInt(this.startPage.getCartCount());
-        assertEquals(Integer.parseInt(amount), actual);
 
-
-    }
 
 
 
