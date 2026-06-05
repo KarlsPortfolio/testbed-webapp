@@ -14,7 +14,9 @@ public class Hooks {
     @Before
     public void setUp() {
         // 1. PRODUCTION DEFAULT: Falls back to the deployed live site when running locally
-        String baseUrl = System.getProperty("site.url", "https://karlsportfolio.github.io/testbed-webapp/");
+//        String baseUrl = System.getProperty("site.url", "https://karlsportfolio.github.io/testbed-webapp/");
+        String baseUrl = System.getProperty("site.url", "http://127.0.0.1:5500/bookstore-app/");
+
 
         // 2. CONFIGURATION SWITCHES: Defaults to chrome/headed for easy local debugging
         String browserChoice = System.getProperty("browser", "chrome");

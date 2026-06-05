@@ -16,7 +16,7 @@
     <header class="header">
       <div class="header__logo" id="logo">Book Haven</div>
       <nav class="header__nav">
-        <button id="store-tab" class="header__nav-btn" type="button" data-testid="store-tab">
+        <button id="book-catalog-tab" class="header__nav-btn" type="button" data-testid="store-tab">
           Store
         </button>
         <button id="checkout-tab" class="header__nav-btn" type="button" data-testid="checkout-tab">
@@ -94,24 +94,24 @@
       <main class="auth">
         <h1 class="auth__title">Login</h1>
         <form id="login-form" class="auth__form" data-testid="login-form">
-          <label for="login-username" class="auth__label">Username</label>
+          <label for="auth-user-field" class="auth__label">Username</label>
           <input
-            id="login-username"
+            id="auth-user-field"
             class="auth__input"
             type="text"
             autocomplete="username"
             data-testid="login-username"
           />
-          <label for="login-password" class="auth__label">Password</label>
+          <label for="auth-password-field" class="auth__label">Password</label>
           <input
-            id="login-password"
+            id="auth-password-field"
             class="auth__input"
             type="password"
             autocomplete="current-password"
             data-testid="login-password"
           />
           <p id="login-error" class="auth__error" data-testid="login-error"></p>
-          <button id="login-submit" class="button button--primary" type="submit" data-testid="login-submit">
+          <button id="btn-execute-auth" class="button button--primary" type="submit" data-testid="login-submit">
             Login
           </button>
         </form>

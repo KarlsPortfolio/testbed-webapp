@@ -53,15 +53,15 @@ const cvvInput = document.getElementById("cvv");
 const placeOrderButton = document.getElementById("place-order-button");
 const processingOverlay = document.getElementById("processing-overlay");
 
-const storeTab = document.getElementById("store-tab");
+const storeTab = document.getElementById("book-catalog-tab");
 const checkoutTab = document.getElementById("checkout-tab");
 const messagesTab = document.getElementById("messages-tab");
 const authButton = document.getElementById("auth-button");
 const headerUserName = document.getElementById("header-user-name");
 
 const loginForm = document.getElementById("login-form");
-const loginUsername = document.getElementById("login-username");
-const loginPassword = document.getElementById("login-password");
+const loginUsername = document.getElementById("auth-user-field");
+const loginPassword = document.getElementById("auth-password-field");
 const loginError = document.getElementById("login-error");
 
 const bookGrid = document.getElementById("book-grid");
