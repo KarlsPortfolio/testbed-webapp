@@ -18,7 +18,7 @@ public class Hooks {
 
         // 2. CONFIGURATION SWITCHES: Defaults to chrome/headed for easy local debugging
         String browserChoice = System.getProperty("browser", "chrome");
-        boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "true"));
 
         // 3. Boot the core Playwright engine
         playwright = Playwright.create();
