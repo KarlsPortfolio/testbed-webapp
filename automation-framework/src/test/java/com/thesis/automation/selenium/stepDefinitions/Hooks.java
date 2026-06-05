@@ -19,7 +19,7 @@ public class Hooks {
 
         // Read configuration inputs from your Maven CLI execution switches
         String browser = System.getProperty("browser", "chrome");
-        boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "true"));
 
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();

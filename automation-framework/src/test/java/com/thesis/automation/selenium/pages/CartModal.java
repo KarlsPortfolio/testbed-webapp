@@ -128,8 +128,6 @@ public class CartModal extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(cartRemoveItemBtn)).click();
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(cartItemId));
 
-
-
     }
 
     public String getSubTotal(String expectedSubtotal)  {
@@ -148,13 +146,6 @@ public class CartModal extends BasePage {
     public String checkBookInCart(String bookTitle){
         return wait.until(ExpectedConditions.presenceOfElementLocated(modalCartBookTitle)).getText();
 
-
     }
-
-
-
-
-
-
 
 }
