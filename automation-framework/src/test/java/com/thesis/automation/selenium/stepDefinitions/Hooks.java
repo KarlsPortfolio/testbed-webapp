@@ -15,7 +15,8 @@ public class Hooks {
     @Before
     public void setUp() {
         // Hook captures the System Property cleanly at launch
-        String baseUrl = System.getProperty("site.url", "https://karlsportfolio.github.io/testbed-webapp/");
+        //String baseUrl = System.getProperty("site.url", "https://karlsportfolio.github.io/testbed-webapp/");
+        String baseUrl = System.getProperty("site.url", "http://127.0.0.1:5500/bookstore-app/");
 
         // Read configuration inputs from your Maven CLI execution switches
         String browser = System.getProperty("browser", "chrome");

@@ -906,16 +906,19 @@ pdpModal.addEventListener("click", (event) => {
   }
 });
 
+setTimeout(() => {
+  loadSession();
+  loadMessages();
+  updateAuthUi();
+  renderBooks();
+  renderCart();
+  renderMessages();
+  renderCheckoutSummary();
+  updateCartBadge();
+  navigateTo("store");
+}, 3000);
 
-loadSession();
-loadMessages();
-updateAuthUi();
-renderBooks();
-renderCart();
-renderMessages();
-renderCheckoutSummary();
-updateCartBadge();
-navigateTo("store");
+
 
 document.addEventListener("DOMContentLoaded", () => {
   setupValidationListeners();
